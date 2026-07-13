@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Konfirmasi SweetAlert sebelum approve/reject
-function confirmAction(formId, action, name) {
+window.confirmAction = function(formId, action, name) {
     const isApprove = action === 'approve';
     Swal.fire({
         title: isApprove ? 'Setujui?' : 'Tolak?',
@@ -73,10 +73,10 @@ function confirmAction(formId, action, name) {
             document.getElementById(formId).submit();
         }
     });
-}
+};
 
 // Konfirmasi hapus
-function confirmDelete(formId, name) {
+window.confirmDelete = function(formId, name) {
     Swal.fire({
         title: 'Hapus?',
         text: `"${name}" akan dihapus secara permanen.`,
@@ -93,7 +93,7 @@ function confirmDelete(formId, name) {
             document.getElementById(formId).submit();
         }
     });
-}
+};
 
 // Mobile sidebar toggle
 const sidebarToggle = document.getElementById('sidebar-toggle');
