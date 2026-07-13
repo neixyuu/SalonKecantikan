@@ -12,7 +12,7 @@
         <meta name="flash-error" content="{{ session('error') }}">
     @endif
 
-    <title>@yield('title', 'Masuk') — Nude Beauty Salon</title>
+    <title>@yield('title', 'Masuk') — AETH Clinic</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
@@ -25,8 +25,8 @@
             <div class="absolute inset-0" style="background: linear-gradient(135deg, var(--color-blush) 0%, var(--color-tan) 60%, var(--color-cream-dark) 100%);"></div>
             <div class="relative z-10 flex flex-col justify-between p-12 w-full">
                 <a href="/" class="block">
-                    <span class="font-serif text-4xl italic text-charcoal">Nude</span>
-                    <span class="block text-xs tracking-widest uppercase text-charcoal/50 mt-1">Beauty Salon</span>
+                    <span class="font-serif text-4xl italic text-charcoal">AETH Clinic</span>
+                    <span class="block text-xs tracking-widest uppercase text-charcoal/50 mt-1">Beauty & Care</span>
                 </a>
                 <div>
                     <blockquote class="font-serif text-2xl italic text-charcoal/80 leading-relaxed mb-6">
@@ -37,7 +37,7 @@
                         <div class="w-4 h-0.5 bg-charcoal/20"></div>
                     </div>
                 </div>
-                <p class="text-xs text-charcoal/40 tracking-wide">© {{ date('Y') }} Nude Beauty Salon</p>
+                <p class="text-xs text-charcoal/40 tracking-wide">© {{ date('Y') }} AETH Clinic</p>
             </div>
         </div>
 
@@ -47,8 +47,8 @@
                 {{-- Mobile Logo --}}
                 <div class="lg:hidden mb-8 text-center">
                     <a href="/" class="inline-block">
-                        <span class="font-serif text-3xl italic text-charcoal">Nude</span>
-                        <span class="block text-xs tracking-widest uppercase text-tan-dark mt-0.5">Beauty Salon</span>
+                        <span class="font-serif text-3xl italic text-charcoal">AETH Clinic</span>
+                        <span class="block text-xs tracking-widest uppercase text-tan-dark mt-0.5">Beauty & Care</span>
                     </a>
                 </div>
 

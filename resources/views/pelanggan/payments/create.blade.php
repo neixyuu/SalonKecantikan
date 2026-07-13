@@ -89,7 +89,7 @@
         <div class="p-4 border border-blush" style="background-color: rgba(243,217,212,0.2);">
             <p class="text-xs text-charcoal-light leading-relaxed">
                 <span class="font-semibold" style="color:var(--color-tan-dark);">Rekening Pembayaran:</span><br>
-                BCA · 1234567890 · Atas Nama: Nude Beauty Salon<br>
+                BCA · 1234567890 · Atas Nama: AETH Clinic<br>
                 <span class="mt-1 block">Upload screenshot/foto bukti transfer setelah melakukan pembayaran.</span>
             </p>
         </div>

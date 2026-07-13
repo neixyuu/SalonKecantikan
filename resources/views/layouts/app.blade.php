@@ -16,7 +16,7 @@
         <meta name="flash-info" content="{{ session('info') }}">
     @endif
 
-    <title>@yield('title', 'Salon Kecantikan') — Nude Beauty</title>
+    <title>@yield('title', 'Salon Kecantikan') — AETH Clinic</title>
     <meta name="description" content="@yield('meta_description', 'Salon kecantikan premium dengan layanan terbaik untuk merawat kecantikan Anda.')">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -34,7 +34,7 @@
             {{-- Logo --}}
             <div class="px-6 py-8 border-b border-white/10">
                 <a href="/admin/dashboard" class="block">
-                    <span class="font-serif text-cream text-xl italic">Nude</span>
+                    <span class="font-serif text-cream text-xl italic">AETH Clinic</span>
                     <span class="block text-xs tracking-widest uppercase text-cream/50 mt-0.5">Admin Panel</span>
                 </a>
             </div>
@@ -136,8 +136,8 @@
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             {{-- Logo --}}
             <a href="/" class="flex flex-col leading-none">
-                <span class="font-serif text-2xl italic text-charcoal tracking-tight">Nude</span>
-                <span class="text-xs tracking-widest uppercase text-tan-dark" style="font-size:0.55rem; letter-spacing:0.18em;">Beauty Salon</span>
+                <span class="font-serif text-xl font-semibold text-charcoal tracking-tight">AETH Clinic</span>
+                <span class="text-xs tracking-widest uppercase text-tan-dark" style="font-size:0.55rem; letter-spacing:0.18em;">Beauty & Care</span>
             </a>
 
             {{-- Nav Links --}}
@@ -199,10 +199,10 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
                 {{-- Brand --}}
                 <div class="md:col-span-2">
-                    <span class="font-serif text-cream text-2xl italic">Nude</span>
-                    <span class="block text-xs tracking-widest uppercase text-cream/40 mt-0.5 mb-4">Beauty Salon</span>
+                    <span class="font-serif text-cream text-2xl italic">AETH Clinic</span>
+                    <span class="block text-xs tracking-widest uppercase text-cream/40 mt-0.5 mb-4">Beauty & Care</span>
                     <p class="text-sm leading-relaxed text-cream/60 max-w-xs">
-                        Salon kecantikan premium yang menghadirkan perawatan terbaik untuk merawat dan memperindah kecantikan alami Anda.
+                        AETH Clinic — klinik kecantikan premium yang menghadirkan perawatan terbaik untuk merawat dan memperindah kecantikan alami Anda.
                     </p>
                     <div class="mt-6 flex gap-3">
                         <a href="#" class="w-8 h-8 border border-cream/20 flex items-center justify-center hover:border-tan hover:text-tan transition-colors">
@@ -237,7 +237,7 @@
             </div>
 
             <div class="border-t border-cream/10 mt-12 pt-6 text-center">
-                <p class="text-xs text-cream/30 tracking-wide">© {{ date('Y') }} Nude Beauty Salon. All rights reserved.</p>
+                <p class="text-xs text-cream/30 tracking-wide">© {{ date('Y') }} AETH Clinic. All rights reserved.</p>
             </div>
         </div>
     </footer>

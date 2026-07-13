@@ -1,58 +1,120 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikasi Reservasi AETH Clinic
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi reservasi salon kecantikan premium yang dibangun menggunakan Laravel 13, Tailwind CSS v4, dan MySQL. Sistem ini dirancang untuk memudahkan pelanggan melakukan reservasi layanan salon dan admin dalam mengelola data.
 
-## About Laravel
+## Spesifikasi Teknis
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Framework PHP:** Laravel 13.x (PHP 8.3)
+- **CSS Framework:** Tailwind CSS v4 (via `@tailwindcss/vite`)
+- **Database:** MySQL
+- **Autentikasi:** Custom Auth Manual (dengan Middleware Role & Status Akun)
+- **Alert System:** SweetAlert2 (Session flash messages)
+- **Design Style:** AETH Clinic — Elegant Minimalist (inspired by Nude Wix template)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Aktor: Pelanggan
+- Register akun baru (status default: pending).
+- Login (akses penuh ke fitur pelanggan jika akun sudah verified).
+- Lihat status verifikasi akun.
+- Katalog layanan/treatment.
+- Buat reservasi jadwal treatment.
+- Upload bukti pembayaran untuk reservasi yang disetujui.
+- Lihat riwayat reservasi.
+- Lihat pengumuman salon (mendukung gambar dan video YouTube embed).
 
-## Learning Laravel
+### Aktor: Admin
+- Verifikasi pendaftaran pelanggan (Approve/Reject).
+- Verifikasi reservasi (Approve/Reject).
+- Verifikasi pembayaran.
+- Kelola (CRUD) Layanan Treatment.
+- Kelola (CRUD) Pengumuman.
+- Dashboard statistik lengkap.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ERD (Entity Relationship Diagram)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Sistem ini menggunakan 5 tabel utama yang saling berelasi:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+1. **`users`**: Menyimpan data akun admin dan pelanggan. Kolom tambahan: `role`, `account_status`, `phone`.
+2. **`treatments`**: Menyimpan katalog layanan salon (nama, deskripsi, harga, durasi, gambar).
+3. **`reservations`**: Menyimpan data reservasi pelanggan (terhubung ke `users` dan `treatments`).
+4. **`payments`**: Menyimpan data pembayaran (terhubung ke `reservations`, dengan kolom bukti transfer).
+5. **`announcements`**: Menyimpan pengumuman dari admin (terhubung ke `users` admin, mendukung gambar dan video URL).
 
-## Agentic Development
+## Prasyarat Instalasi
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Pastikan sistem Anda sudah terinstal:
+- PHP >= 8.3
+- Composer
+- Node.js & NPM
+- MySQL Server (misal: XAMPP)
 
-```bash
-composer require laravel/boost --dev
+## Panduan Instalasi (Lokal)
 
-php artisan boost:install
-```
+1. **Clone repository ini** (jika ada) atau letakkan di folder server lokal Anda.
+2. Buka terminal, masuk ke direktori proyek:
+   ```bash
+   cd e:\DEv_Stud\LSP\SalonKecantikan
+   ```
+3. **Install dependensi PHP dan Node.js:**
+   ```bash
+   composer install
+   npm install
+   ```
+4. **Konfigurasi Environment:**
+   Buka file `.env` dan pastikan konfigurasi database sudah benar:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=salonkecantikan
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+   *(Kosongkan password jika Anda menggunakan XAMPP secara default)*
+5. **Jalankan Migrasi Database dan Seeder:**
+   *(Pastikan database `salonkecantikan` sudah dibuat di MySQL/phpMyAdmin)*
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+   *Seeder ini akan otomatis membuatkan akun admin dan beberapa data treatment default.*
+6. **Hubungkan Folder Storage (untuk upload gambar):**
+   ```bash
+   php artisan storage:link
+   ```
+7. **Compile Assets (Tailwind CSS):**
+   ```bash
+   npm run build
+   # atau untuk mode development:
+   # npm run dev
+   ```
+8. **Jalankan Laravel Server:**
+   ```bash
+   php artisan serve
+   ```
+   Buka browser dan akses `http://localhost:8000`.
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Akun Demo (Default)
 
-## Contributing
+Setelah menjalankan seeder, Anda dapat login menggunakan akun berikut:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Admin**
+  - Email: `admin@salon.com`
+  - Password: `password123`
 
-## Code of Conduct
+Untuk mencoba alur pelanggan, silakan buat akun baru melalui halaman Register, lalu verifikasi akun tersebut menggunakan akun Admin.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Urutan Testing (End-to-End Flow)
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Buka halaman utama (Landing Page).
+2. Klik **Daftar** dan buat akun pelanggan baru.
+3. Anda akan diarahkan ke halaman "Status Akun" dengan status **Menunggu Verifikasi**.
+4. Logout, lalu Login sebagai **Admin**.
+5. Masuk ke menu **Verifikasi Akun Pelanggan**, temukan akun yang baru dibuat, lalu klik **Setujui**.
+6. Logout dari Admin, Login kembali sebagai **Pelanggan**.
+7. Anda sekarang memiliki akses ke Dashboard.
+8. Masuk ke menu **Layanan** atau klik **Reservasi Baru**, pilih treatment, tanggal, dan jam, lalu Submit.
+9. Status reservasi akan menjadi **Menunggu**.
+10. Login kembali sebagai **Admin**, masuk ke **Verifikasi Reservasi**, lalu setujui reservasi tersebut.
+11. Login kembali sebagai **Pelanggan**, periksa riwayat reservasi, klik tombol **Upload Bukti Pembayaran**, lalu unggah gambar bukti transfer.
+12. Terakhir, Login sebagai **Admin**, masuk ke **Verifikasi Pembayaran**, dan setujui pembayarannya. Alur selesai!

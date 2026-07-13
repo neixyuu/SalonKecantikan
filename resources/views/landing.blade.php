@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Nude Beauty Salon — Salon Kecantikan Premium')
-@section('meta_description', 'Salon kecantikan premium dengan layanan facial, massage, hair treatment, dan lebih banyak lagi. Reservasi mudah online.')
+@section('title', 'AETH Clinic — Klinik Kecantikan Premium')
+@section('meta_description', 'AETH Clinic — klinik kecantikan premium dengan layanan facial, massage, hair treatment, dan lebih banyak lagi. Reservasi mudah online.')
 
 @section('content')
 
@@ -107,7 +107,7 @@
 {{-- ── Gallery Strip ── --}}
 <section class="py-8" id="tentang">
     <div class="max-w-6xl mx-auto px-6 mb-6">
-        <p class="text-center text-xs tracking-widest uppercase text-charcoal-light">♦ Join the Nude Beauty Community</p>
+        <p class="text-center text-xs tracking-widest uppercase text-charcoal-light">♦ Join the AETH Clinic Community</p>
     </div>
     <div class="flex gap-1 overflow-hidden px-6 max-w-6xl mx-auto">
         @php

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // ─── Landing Page (Publik) ────────────────────────────────────────────────────
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 
-// ─── Auth ─────────────────────────────────────────────────────────────────────
+// ─── Auth ────────────────────────────────────────────────────────────────────
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 

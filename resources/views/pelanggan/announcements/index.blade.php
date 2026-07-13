@@ -8,7 +8,7 @@
     <div class="text-center mb-12 fade-in">
         <span class="section-label">Info Terbaru</span>
         <h1 class="font-serif text-4xl text-charcoal">Pengumuman</h1>
-        <p class="text-sm text-charcoal-light mt-2 tracking-wide">Informasi terkini dari Nude Beauty Salon</p>
+        <p class="text-sm text-charcoal-light mt-2 tracking-wide">Informasi terkini dari AETH Clinic</p>
     </div>
 
     @if($announcements->isNotEmpty())
