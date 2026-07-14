@@ -45,8 +45,9 @@
                             @endif
                         </td>
                         <td>
-                            <div class="flex gap-2">
-                                @if($user->account_status !== 'verified')
+                            @if($user->account_status === 'pending')
+                                {{-- Masih pending: tampilkan tombol aksi --}}
+                                <div class="flex gap-2">
                                     <form id="approve-user-{{ $user->id }}" method="POST" action="/admin/users/{{ $user->id }}/verify">
                                         @csrf @method('PATCH')
                                         <input type="hidden" name="action" value="approve">
@@ -56,9 +57,7 @@
                                             onclick="confirmAction('approve-user-{{ $user->id }}', 'approve', '{{ $user->name }}')">
                                         Setujui
                                     </button>
-                                @endif
 
-                                @if($user->account_status !== 'rejected')
                                     <form id="reject-user-{{ $user->id }}" method="POST" action="/admin/users/{{ $user->id }}/verify">
                                         @csrf @method('PATCH')
                                         <input type="hidden" name="action" value="reject">
@@ -67,8 +66,26 @@
                                             onclick="confirmAction('reject-user-{{ $user->id }}', 'reject', '{{ $user->name }}')">
                                         Tolak
                                     </button>
-                                @endif
-                            </div>
+                                </div>
+
+                            @elseif($user->account_status === 'verified')
+                                {{-- Sudah disetujui: histori, tidak bisa diubah --}}
+                                <div class="flex items-center gap-1.5 px-3 py-1.5 border border-emerald-200 bg-emerald-50 w-fit">
+                                    <svg class="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span class="text-xs font-medium text-emerald-700 tracking-wide">Disetujui</span>
+                                </div>
+
+                            @else
+                                {{-- Sudah ditolak: histori, tidak bisa diubah --}}
+                                <div class="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 bg-red-50 w-fit">
+                                    <svg class="w-3.5 h-3.5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                    <span class="text-xs font-medium text-red-600 tracking-wide">Ditolak</span>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                 @empty
