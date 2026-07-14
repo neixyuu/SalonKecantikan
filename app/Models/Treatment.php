@@ -37,8 +37,11 @@ class Treatment extends Model
     public function getImageUrlAttribute(): string
     {
         if ($this->image) {
+            if (str_starts_with($this->image, 'http')) {
+                return $this->image;
+            }
             return asset('storage/' . $this->image);
         }
-        return asset('images/default-treatment.jpg');
+        return '';
     }
 }

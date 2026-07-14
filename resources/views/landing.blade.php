@@ -7,10 +7,12 @@
 
 {{-- ── Hero Section ── --}}
 <section class="relative overflow-hidden" style="min-height: 520px; background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);">
-    {{-- Background decorative --}}
+    {{-- Background decorative with image --}}
     <div class="absolute inset-0 flex">
         <div class="w-full md:w-1/2"></div>
-        <div class="hidden md:block w-1/2 relative" style="background: linear-gradient(135deg, var(--color-blush) 0%, var(--color-tan) 100%); opacity: 0.4;"></div>
+        <div class="hidden md:block w-1/2 relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&q=80&w=1200');">
+            <div class="absolute inset-0 bg-gradient-to-r from-cream to-transparent"></div>
+        </div>
     </div>
 
     <div class="relative max-w-6xl mx-auto px-6 py-20 md:py-32 flex items-center">
@@ -42,15 +44,15 @@
 {{-- ── Promo Banners ── --}}
 <section class="max-w-6xl mx-auto px-6 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="relative overflow-hidden p-8 flex flex-col justify-center" style="min-height: 220px; background: linear-gradient(135deg, var(--color-blush) 0%, var(--color-blush-dark) 100%);">
-            <span class="section-label text-charcoal/60">Perawatan Wajah</span>
-            <h3 class="font-serif text-2xl text-charcoal mb-3">Facial Treatment<br>Terbaik Kami</h3>
-            <a href="{{ auth()->check() ? '/treatments' : '/register' }}" class="btn-nude inline-flex self-start mt-2 text-xs">Reservasi →</a>
+        <div class="relative overflow-hidden p-8 flex flex-col justify-center bg-cover bg-center" style="min-height: 220px; background-image: linear-gradient(135deg, rgba(243, 217, 212, 0.85) 0%, rgba(232, 196, 188, 0.9) 100%), url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=800');">
+            <span class="section-label text-charcoal/60 relative z-10">Perawatan Wajah</span>
+            <h3 class="font-serif text-2xl text-charcoal mb-3 relative z-10">Facial Treatment<br>Terbaik Kami</h3>
+            <a href="{{ auth()->check() ? '/treatments' : '/register' }}" class="btn-nude inline-flex self-start mt-2 text-xs relative z-10">Reservasi →</a>
         </div>
-        <div class="relative overflow-hidden p-8 flex flex-col justify-center" style="min-height: 220px; background: linear-gradient(135deg, var(--color-graylight) 0%, var(--color-graymedium) 100%);">
-            <span class="section-label">Relaksasi Tubuh</span>
-            <h3 class="font-serif text-2xl text-charcoal mb-3">Massage &<br>Body Care</h3>
-            <a href="{{ auth()->check() ? '/treatments' : '/register' }}" class="btn-nude inline-flex self-start mt-2 text-xs">Reservasi →</a>
+        <div class="relative overflow-hidden p-8 flex flex-col justify-center bg-cover bg-center" style="min-height: 220px; background-image: linear-gradient(135deg, rgba(232, 232, 232, 0.85) 0%, rgba(217, 217, 217, 0.9) 100%), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800');">
+            <span class="section-label relative z-10">Relaksasi Tubuh</span>
+            <h3 class="font-serif text-2xl text-charcoal mb-3 relative z-10">Massage &<br>Body Care</h3>
+            <a href="{{ auth()->check() ? '/treatments' : '/register' }}" class="btn-nude inline-flex self-start mt-2 text-xs relative z-10">Reservasi →</a>
         </div>
     </div>
 </section>
@@ -111,12 +113,23 @@
     </div>
     <div class="flex gap-1 overflow-hidden px-6 max-w-6xl mx-auto">
         @php
-        $galleryColors = ['#F3D9D4', '#E8C4BC', '#D9A98E', '#F5F0EB', '#F3D9D4', '#E8C4BC'];
+        $galleryImages = [
+            'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=400',
+            'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=400',
+            'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=400',
+            'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&q=80&w=400',
+            'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=400',
+            'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=400',
+        ];
         $galleryLabels = ['Facial', 'Massage', 'Hair Care', 'Nail Art', 'Body Spa', 'Beauty'];
         @endphp
         @for($i = 0; $i < 6; $i++)
-            <div class="flex-1 min-w-0" style="height: 120px; background-color: {{ $galleryColors[$i] }}; display:flex; align-items:center; justify-content:center;">
-                <span class="text-xs tracking-wider uppercase text-charcoal/40">{{ $galleryLabels[$i] }}</span>
+            <div class="flex-1 min-w-0 relative group overflow-hidden" style="height: 140px;">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('{{ $galleryImages[$i] }}');"></div>
+                <div class="absolute inset-0 bg-charcoal/40 group-hover:bg-charcoal/20 transition-colors duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-xs tracking-wider uppercase text-white font-semibold shadow-sm">{{ $galleryLabels[$i] }}</span>
+                </div>
             </div>
         @endfor
     </div>
@@ -147,8 +160,9 @@
 @endif
 
 {{-- ── CTA Section ── --}}
-<section class="py-20" style="background: linear-gradient(135deg, var(--color-charcoal) 0%, #404040 100%);">
-    <div class="max-w-2xl mx-auto px-6 text-center">
+<section class="py-20 relative overflow-hidden" style="background-color: var(--color-charcoal);">
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=1600');"></div>
+    <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
         <span class="section-label text-tan">Mulai Sekarang</span>
         <h2 class="font-serif text-4xl text-cream mb-4">Siap Tampil<br>Lebih Cantik?</h2>
         <p class="text-sm text-cream/60 mb-8 tracking-wide">Daftarkan akun Anda dan mulai reservasi layanan salon premium kami.</p>
