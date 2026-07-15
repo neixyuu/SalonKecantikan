@@ -42,7 +42,6 @@
 ## Panduan Instalasi (Development)
 
 ### Persyaratan Minimum (Prerequisites)
-Pastikan sistem Anda sudah terinstal:
 - **PHP** >= 8.3
 - **Composer** (Dependency Manager untuk PHP)
 - **Node.js** dan **NPM**
@@ -50,7 +49,7 @@ Pastikan sistem Anda sudah terinstal:
 
 ### Langkah-langkah Instalasi
 
-1. **Clone repositori ini** (Jika proyek berada di GitHub)
+1. **Clone repositori ini** 
    ```bash
    git clone <url-repository>
    cd SalonKecantikan
