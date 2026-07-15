@@ -25,8 +25,6 @@
 
 ## Spesifikasi & Dependensi
 
-Proyek ini menggunakan *stack* teknologi modern untuk memastikan performa yang cepat dan pengalaman pengembangan (DX) yang baik.
-
 ### Spesifikasi Sistem
 - **Arsitektur**: Model-View-Controller (MVC)
 - **Bahasa**: PHP (Backend), JavaScript (Frontend/Interactions)
@@ -42,8 +40,6 @@ Proyek ini menggunakan *stack* teknologi modern untuk memastikan performa yang c
 ---
 
 ## Panduan Instalasi (Development)
-
-Berikut adalah panduan langkah demi langkah untuk menjalankan proyek ini di *environment* lokal Anda.
 
 ### Persyaratan Minimum (Prerequisites)
 Pastikan sistem Anda sudah terinstal:
