@@ -1,82 +1,139 @@
-# Dokumentasi Proyek: Sistem Reservasi AETH Clinic
+# AETH Clinic - Management & Reservation System
 
-AETH Clinic adalah aplikasi berbasis web premium yang dirancang untuk mengelola reservasi layanan salon kecantikan dan klinik perawatan secara digital. Sistem ini menjembatani interaksi antara pelanggan (untuk pemesanan layanan) dan administrator (untuk manajemen operasional dan verifikasi).
-
-Proyek ini difokuskan pada fungsionalitas *end-to-end* yang mulus dipadukan dengan antarmuka pengguna (UI) yang sangat estetis dan minimalis, memberikan kesan layanan kelas atas kepada penggunanya.
-
----
-
-## 1. Arsitektur & Teknologi
-
-Aplikasi ini dibangun menggunakan tumpukan teknologi (tech stack) modern dengan pendekatan *server-side rendering* (SSR):
-
-- **Backend Framework:** Laravel 13 (PHP 8.3)
-- **Frontend Styling:** Tailwind CSS v4 (melalui integrasi Vite)
-- **Database Management:** MySQL (Relational Database)
-- **Sistem Notifikasi UI:** SweetAlert2 untuk konfirmasi aksi dan *flash messages*.
-- **Ikonografi & Tipografi:** Mengandalkan integrasi SVG kustom, Google Fonts (Playfair Display & Instrument Sans) untuk nuansa elegan.
+<div align="center">
+  <h3>Sistem Informasi Manajemen Reservasi Klinik Kecantikan</h3>
+  <p>Dibangun menggunakan <strong>Laravel 13</strong> dan <strong>Tailwind CSS</strong></p>
+</div>
 
 ---
 
-## 2. Fitur Utama Sistem
+## 📌 Deskripsi Proyek
+**AETH Clinic** adalah sebuah sistem manajemen reservasi layanan (treatment) salon dan klinik kecantikan. Sistem ini memfasilitasi dua sisi pengguna, yaitu **Pelanggan** untuk melakukan pemesanan jadwal perawatan, dan **Admin** untuk mengelola seluruh aspek operasional mulai dari verifikasi pelanggan, manajemen reservasi, hingga validasi pembayaran.
 
-Sistem membagi pengguna ke dalam dua peran utama, masing-masing dengan antarmuka dan hak akses spesifik.
+Aplikasi ini mengedepankan keamanan transaksi melalui *3-Layer Verification Flow* (Verifikasi Akun, Verifikasi Jadwal Reservasi, dan Verifikasi Bukti Pembayaran).
 
-### Panel Administrator (Dashboard Admin)
-Panel kendali terpusat bagi staf atau pengelola klinik untuk menjalankan operasional bisnis.
-- **Manajemen Akun Terpusat:** Admin memverifikasi setiap pendaftaran akun baru sebelum pelanggan diizinkan melakukan reservasi.
-- **Verifikasi Reservasi:** Admin meninjau permohonan jadwal treatment dari pelanggan berdasarkan ketersediaan.
-- **Validasi Pembayaran:** Admin memeriksa bukti transfer yang diunggah pelanggan (dengan fitur pratinjau overlay gambar).
-- **Manajemen Layanan (Katalog):** Modul CRUD untuk menambah, mengedit, atau menghapus layanan/treatment beserta harga, durasi, dan gambar referensi.
-- **Pusat Informasi (Pengumuman):** Admin dapat menyebarkan informasi publik yang terintegrasi dengan embed video (mis. YouTube) dan gambar.
-- **Sistem Histori Kekal (Immutable History):** Setiap keputusan persetujuan atau penolakan bersifat final dan terekam sebagai histori (badge read-only), mencegah perubahan yang tidak disengaja.
+## 🚀 Fitur Utama
 
-### Portal Pelanggan
-Antarmuka publik dan area anggota yang dirancang untuk pengalaman pengguna yang intuitif.
-- **Autentikasi Terkontrol:** Sistem registrasi yang menempatkan pengguna dalam status "Menunggu Verifikasi" demi keamanan komunitas klinik.
-- **Katalog Visual:** Penjelajahan layanan klinik yang disajikan dalam bentuk grid estetik, lengkap dengan rincian durasi dan harga.
-- **Booking Engine:** Formulir pemesanan jadwal yang membatasi input pada jam operasional klinik (09:00 - 20:00).
-- **Pelacakan Status:** Pelanggan dapat memantau status reservasi mereka secara *real-time* (Menunggu, Disetujui, Ditolak).
-- **Portal Pembayaran:** Integrasi formulir unggah bukti transfer yang aman setelah jadwal disetujui.
+### 🧑‍💼 Admin Panel
+- **Manajemen Pengguna (User Verification)**: Menyetujui atau menolak akun baru pelanggan untuk mencegah *spam/fake accounts*.
+- **Manajemen Layanan (Treatment CRUD)**: Menambah, mengubah, menghapus, dan menampilkan daftar layanan klinik beserta harga dan durasi.
+- **Validasi Reservasi**: Menyetujui atau menolak jadwal *treatment* yang diajukan pelanggan.
+- **Validasi Pembayaran**: Memeriksa dan memverifikasi bukti transfer pembayaran dari pelanggan.
+- **Manajemen Pengumuman/Promo**: Mengelola informasi publik yang ditampilkan di beranda (*support* *embed* video YouTube).
 
----
-
-## 3. Alur Kerja & Logika Bisnis (Workflow)
-
-Sistem ini menerapkan validasi tiga lapis (Triple Verification) untuk memastikan keabsahan data:
-
-1. **Fase Registrasi:** Pengguna mendaftar -> Admin memverifikasi akun -> Pengguna mendapat akses penuh.
-2. **Fase Reservasi:** Pelanggan memilih treatment & waktu -> Admin memverifikasi jadwal -> Reservasi disetujui.
-3. **Fase Transaksi:** Pelanggan mengunggah bukti bayar -> Admin memverifikasi validitas pembayaran -> Transaksi selesai (Lunas).
+### 👩‍🦰 Portal Pelanggan
+- **Katalog Layanan**: Melihat daftar *treatment* yang tersedia di AETH Clinic.
+- **Sistem Pemesanan (Reservation)**: Melakukan *booking* jadwal *treatment* secara mandiri.
+- **Riwayat Reservasi**: Memantau status reservasi (Menunggu, Disetujui, Ditolak).
+- **Upload Bukti Pembayaran**: Mengunggah foto bukti transfer langsung melalui sistem.
+- **Dashboard Akun**: Melihat ringkasan status akun dan pengumuman dari klinik.
 
 ---
 
-## 4. Desain Sistem & Antarmuka (UI/UX)
+## 🛠️ Spesifikasi & Dependensi
 
-Aplikasi ini menggunakan sistem desain kustom yang ketat untuk menjaga konsistensi visual:
-- **Skema Warna "Nude":** Palet didominasi oleh warna-warna bumi (*earth tones*) seperti *Cream*, *Blush*, *Tan*, dan *Charcoal* untuk memancarkan aura kemewahan, kebersihan, dan ketenangan.
-- **Tipografi:** Kombinasi *Playfair Display* (untuk judul/heading yang elegan) dan *Instrument Sans* (untuk teks paragraf yang bersih dan mudah dibaca).
-- **Komponen Glassmorphism & Transparansi:** Penggunaan efek blur, shadow yang sangat lembut, serta *overlay modal* untuk menampilkan konten gambar tanpa mengganggu konteks halaman.
-- **Layout Responsif:** Tata letak yang beradaptasi secara dinamis (misalnya sidebar admin yang berubah menjadi menu navigasi atas pada layar kecil).
+Proyek ini menggunakan *stack* teknologi modern untuk memastikan performa yang cepat dan pengalaman pengembangan (DX) yang baik.
 
----
+### Spesifikasi Sistem
+- **Arsitektur**: Model-View-Controller (MVC)
+- **Bahasa**: PHP (Backend), JavaScript (Frontend/Interactions)
+- **Database**: MySQL (Direkomendasikan) / SQLite (Untuk *development*)
+- **Frontend Build Tool**: Vite
 
-## 5. Struktur Basis Data (ERD Overview)
-
-Sistem bergantung pada 5 entitas utama yang saling terkait erat (Relational Schema):
-- `Users`: Entitas sentral yang menyimpan data autentikasi dan profil.
-- `Treatments`: Entitas master yang menyimpan daftar layanan klinik.
-- `Reservations`: Entitas transaksional yang menghubungkan `Users` dan `Treatments` berdasarkan waktu (waktu pemesanan).
-- `Payments`: Entitas dependen yang terikat pada `Reservations` untuk menampung data bukti transaksi.
-- `Announcements`: Entitas publikasi yang dibuat oleh `Users` (dengan peran Admin) untuk dikonsumsi pelanggan.
+### Dependensi Utama (Tech Stack)
+- **Framework**: [Laravel ^13.8](https://laravel.com/) (PHP ^8.3)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) (via NPM)
+- **Alerts & Modals**: [SweetAlert2](https://sweetalert2.github.io/)
+- **Icons**: SVG Heroicons
 
 ---
 
-## 6. Keamanan dan Kontrol Akses
+## 💻 Panduan Instalasi (Development)
 
-- **Middleware Kustom:** Aplikasi menggunakan perlindungan lapisan ganda (`CheckRole` dan `CheckAccountVerified`) untuk memastikan bahwa halaman hanya dapat diakses oleh peran yang memiliki otorisasi tepat pada status akun yang valid.
-- **Proteksi Rute (Route Protection):** Semua rute transaksional dijaga dari akses pengguna tamu (*guest*).
-- **Form Protection:** Pencegahan CSRF pada seluruh permintaan formulir (*form submission*).
+Berikut adalah panduan langkah demi langkah untuk menjalankan proyek ini di *environment* lokal Anda.
+
+### Persyaratan Minimum (Prerequisites)
+Pastikan sistem Anda sudah terinstal:
+- **PHP** >= 8.3
+- **Composer** (Dependency Manager untuk PHP)
+- **Node.js** dan **NPM**
+- **MySQL** / MariaDB (jika tidak ingin menggunakan SQLite)
+
+### Langkah-langkah Instalasi
+
+1. **Clone repositori ini** (Jika proyek berada di GitHub)
+   ```bash
+   git clone <url-repository>
+   cd SalonKecantikan
+   ```
+
+2. **Install dependensi PHP (Composer)**
+   ```bash
+   composer install
+   ```
+
+3. **Install dependensi Node.js (NPM)**
+   ```bash
+   npm install
+   ```
+
+4. **Konfigurasi Environment**
+   Salin file konfigurasi bawaan Laravel.
+   ```bash
+   cp .env.example .env
+   ```
+   Buka file `.env` di teks editor, lalu atur koneksi database Anda (biasanya `DB_CONNECTION`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+
+5. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
+
+6. **Migrasi Database & Seeding**
+   Jalankan perintah ini untuk membuat struktur tabel di database dan mengisi *dummy data* (jika *seeder* sudah dikonfigurasi).
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **Storage Link (Penting untuk Gambar)**
+   Sistem ini menggunakan local storage untuk menyimpan bukti pembayaran dan gambar treatment. Anda harus membuat *symlink*.
+   ```bash
+   php artisan storage:link
+   ```
+
+8. **Jalankan Aplikasi Lokal (Development Server)**
+   Anda perlu menjalankan dua *service* secara bersamaan.
+   
+   Jalankan server PHP:
+   ```bash
+   php artisan serve
+   ```
+   Buka terminal/tab baru dan jalankan Vite (*asset bundler* Tailwind):
+   ```bash
+   npm run dev
+   ```
+
+9. **Selesai!** 
+   Buka browser dan akses aplikasi di: `http://localhost:8000`
 
 ---
-*Dokumentasi ini memberikan gambaran tingkat tinggi (high-level overview) dari arsitektur dan fungsionalitas sistem, ditujukan untuk analisis struktural dan tinjauan fitur aplikasi AETH Clinic.*
+
+## 📂 Struktur Direktori Penting
+
+Sebagai gambaran untuk pengembang, berikut lokasi modul-modul penting:
+- `app/Models/` : Relasi database dan logika enkapsulasi (*Accessors*).
+- `app/Http/Controllers/Admin/` : Semua *controller* yang mengelola fitur Dashboard Administrator.
+- `app/Http/Controllers/Pelanggan/` : Semua *controller* untuk interaksi Customer.
+- `resources/views/layouts/` : Berisi `app.blade.php`, layout utama dengan *role-based UI check*.
+- `routes/web.php` : Peta navigasi (*Routing*) utama, dilengkapi grup *middleware* otentikasi dan *role*.
+
+## 🤝 Kontribusi
+Aplikasi ini dikembangkan untuk keperluan spesifik klinik. Jika Anda ingin berkontribusi:
+1. Lakukan *Fork* pada repositori ini.
+2. Buat *branch* fitur Anda (`git checkout -b fitur-baru`).
+3. Lakukan *Commit* perubahan Anda (`git commit -m 'Menambahkan fitur XYZ'`).
+4. *Push* ke branch (`git push origin fitur-baru`).
+5. Buka *Pull Request*.
+
+## 📄 Lisensi
+Proyek ini bersifat *Open Source* di bawah lisensi [MIT license](https://opensource.org/licenses/MIT).
