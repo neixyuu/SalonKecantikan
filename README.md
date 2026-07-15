@@ -1,120 +1,82 @@
-# Aplikasi Reservasi AETH Clinic
+# Dokumentasi Proyek: Sistem Reservasi AETH Clinic
 
-Aplikasi reservasi salon kecantikan premium yang dibangun menggunakan Laravel 13, Tailwind CSS v4, dan MySQL. Sistem ini dirancang untuk memudahkan pelanggan melakukan reservasi layanan salon dan admin dalam mengelola data.
+AETH Clinic adalah aplikasi berbasis web premium yang dirancang untuk mengelola reservasi layanan salon kecantikan dan klinik perawatan secara digital. Sistem ini menjembatani interaksi antara pelanggan (untuk pemesanan layanan) dan administrator (untuk manajemen operasional dan verifikasi).
 
-## Spesifikasi Teknis
+Proyek ini difokuskan pada fungsionalitas *end-to-end* yang mulus dipadukan dengan antarmuka pengguna (UI) yang sangat estetis dan minimalis, memberikan kesan layanan kelas atas kepada penggunanya.
 
-- **Framework PHP:** Laravel 13.x (PHP 8.3)
-- **CSS Framework:** Tailwind CSS v4 (via `@tailwindcss/vite`)
-- **Database:** MySQL
-- **Autentikasi:** Custom Auth Manual (dengan Middleware Role & Status Akun)
-- **Alert System:** SweetAlert2 (Session flash messages)
-- **Design Style:** AETH Clinic — Elegant Minimalist (inspired by Nude Wix template)
+---
 
-## Fitur Utama
+## 1. Arsitektur & Teknologi
 
-### Aktor: Pelanggan
-- Register akun baru (status default: pending).
-- Login (akses penuh ke fitur pelanggan jika akun sudah verified).
-- Lihat status verifikasi akun.
-- Katalog layanan/treatment.
-- Buat reservasi jadwal treatment.
-- Upload bukti pembayaran untuk reservasi yang disetujui.
-- Lihat riwayat reservasi.
-- Lihat pengumuman salon (mendukung gambar dan video YouTube embed).
+Aplikasi ini dibangun menggunakan tumpukan teknologi (tech stack) modern dengan pendekatan *server-side rendering* (SSR):
 
-### Aktor: Admin
-- Verifikasi pendaftaran pelanggan (Approve/Reject).
-- Verifikasi reservasi (Approve/Reject).
-- Verifikasi pembayaran.
-- Kelola (CRUD) Layanan Treatment.
-- Kelola (CRUD) Pengumuman.
-- Dashboard statistik lengkap.
+- **Backend Framework:** Laravel 13 (PHP 8.3)
+- **Frontend Styling:** Tailwind CSS v4 (melalui integrasi Vite)
+- **Database Management:** MySQL (Relational Database)
+- **Sistem Notifikasi UI:** SweetAlert2 untuk konfirmasi aksi dan *flash messages*.
+- **Ikonografi & Tipografi:** Mengandalkan integrasi SVG kustom, Google Fonts (Playfair Display & Instrument Sans) untuk nuansa elegan.
 
-## ERD (Entity Relationship Diagram)
+---
 
-Sistem ini menggunakan 5 tabel utama yang saling berelasi:
+## 2. Fitur Utama Sistem
 
-1. **`users`**: Menyimpan data akun admin dan pelanggan. Kolom tambahan: `role`, `account_status`, `phone`.
-2. **`treatments`**: Menyimpan katalog layanan salon (nama, deskripsi, harga, durasi, gambar).
-3. **`reservations`**: Menyimpan data reservasi pelanggan (terhubung ke `users` dan `treatments`).
-4. **`payments`**: Menyimpan data pembayaran (terhubung ke `reservations`, dengan kolom bukti transfer).
-5. **`announcements`**: Menyimpan pengumuman dari admin (terhubung ke `users` admin, mendukung gambar dan video URL).
+Sistem membagi pengguna ke dalam dua peran utama, masing-masing dengan antarmuka dan hak akses spesifik.
 
-## Prasyarat Instalasi
+### Panel Administrator (Dashboard Admin)
+Panel kendali terpusat bagi staf atau pengelola klinik untuk menjalankan operasional bisnis.
+- **Manajemen Akun Terpusat:** Admin memverifikasi setiap pendaftaran akun baru sebelum pelanggan diizinkan melakukan reservasi.
+- **Verifikasi Reservasi:** Admin meninjau permohonan jadwal treatment dari pelanggan berdasarkan ketersediaan.
+- **Validasi Pembayaran:** Admin memeriksa bukti transfer yang diunggah pelanggan (dengan fitur pratinjau overlay gambar).
+- **Manajemen Layanan (Katalog):** Modul CRUD untuk menambah, mengedit, atau menghapus layanan/treatment beserta harga, durasi, dan gambar referensi.
+- **Pusat Informasi (Pengumuman):** Admin dapat menyebarkan informasi publik yang terintegrasi dengan embed video (mis. YouTube) dan gambar.
+- **Sistem Histori Kekal (Immutable History):** Setiap keputusan persetujuan atau penolakan bersifat final dan terekam sebagai histori (badge read-only), mencegah perubahan yang tidak disengaja.
 
-Pastikan sistem Anda sudah terinstal:
-- PHP >= 8.3
-- Composer
-- Node.js & NPM
-- MySQL Server (misal: XAMPP)
+### Portal Pelanggan
+Antarmuka publik dan area anggota yang dirancang untuk pengalaman pengguna yang intuitif.
+- **Autentikasi Terkontrol:** Sistem registrasi yang menempatkan pengguna dalam status "Menunggu Verifikasi" demi keamanan komunitas klinik.
+- **Katalog Visual:** Penjelajahan layanan klinik yang disajikan dalam bentuk grid estetik, lengkap dengan rincian durasi dan harga.
+- **Booking Engine:** Formulir pemesanan jadwal yang membatasi input pada jam operasional klinik (09:00 - 20:00).
+- **Pelacakan Status:** Pelanggan dapat memantau status reservasi mereka secara *real-time* (Menunggu, Disetujui, Ditolak).
+- **Portal Pembayaran:** Integrasi formulir unggah bukti transfer yang aman setelah jadwal disetujui.
 
-## Panduan Instalasi (Lokal)
+---
 
-1. **Clone repository ini** (jika ada) atau letakkan di folder server lokal Anda.
-2. Buka terminal, masuk ke direktori proyek:
-   ```bash
-   cd e:\DEv_Stud\LSP\SalonKecantikan
-   ```
-3. **Install dependensi PHP dan Node.js:**
-   ```bash
-   composer install
-   npm install
-   ```
-4. **Konfigurasi Environment:**
-   Buka file `.env` dan pastikan konfigurasi database sudah benar:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=salonkecantikan
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-   *(Kosongkan password jika Anda menggunakan XAMPP secara default)*
-5. **Jalankan Migrasi Database dan Seeder:**
-   *(Pastikan database `salonkecantikan` sudah dibuat di MySQL/phpMyAdmin)*
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
-   *Seeder ini akan otomatis membuatkan akun admin dan beberapa data treatment default.*
-6. **Hubungkan Folder Storage (untuk upload gambar):**
-   ```bash
-   php artisan storage:link
-   ```
-7. **Compile Assets (Tailwind CSS):**
-   ```bash
-   npm run build
-   # atau untuk mode development:
-   # npm run dev
-   ```
-8. **Jalankan Laravel Server:**
-   ```bash
-   php artisan serve
-   ```
-   Buka browser dan akses `http://localhost:8000`.
+## 3. Alur Kerja & Logika Bisnis (Workflow)
 
-## Akun Demo (Default)
+Sistem ini menerapkan validasi tiga lapis (Triple Verification) untuk memastikan keabsahan data:
 
-Setelah menjalankan seeder, Anda dapat login menggunakan akun berikut:
+1. **Fase Registrasi:** Pengguna mendaftar -> Admin memverifikasi akun -> Pengguna mendapat akses penuh.
+2. **Fase Reservasi:** Pelanggan memilih treatment & waktu -> Admin memverifikasi jadwal -> Reservasi disetujui.
+3. **Fase Transaksi:** Pelanggan mengunggah bukti bayar -> Admin memverifikasi validitas pembayaran -> Transaksi selesai (Lunas).
 
-- **Admin**
-  - Email: `admin@salon.com`
-  - Password: `password123`
+---
 
-Untuk mencoba alur pelanggan, silakan buat akun baru melalui halaman Register, lalu verifikasi akun tersebut menggunakan akun Admin.
+## 4. Desain Sistem & Antarmuka (UI/UX)
 
-## Urutan Testing (End-to-End Flow)
+Aplikasi ini menggunakan sistem desain kustom yang ketat untuk menjaga konsistensi visual:
+- **Skema Warna "Nude":** Palet didominasi oleh warna-warna bumi (*earth tones*) seperti *Cream*, *Blush*, *Tan*, dan *Charcoal* untuk memancarkan aura kemewahan, kebersihan, dan ketenangan.
+- **Tipografi:** Kombinasi *Playfair Display* (untuk judul/heading yang elegan) dan *Instrument Sans* (untuk teks paragraf yang bersih dan mudah dibaca).
+- **Komponen Glassmorphism & Transparansi:** Penggunaan efek blur, shadow yang sangat lembut, serta *overlay modal* untuk menampilkan konten gambar tanpa mengganggu konteks halaman.
+- **Layout Responsif:** Tata letak yang beradaptasi secara dinamis (misalnya sidebar admin yang berubah menjadi menu navigasi atas pada layar kecil).
 
-1. Buka halaman utama (Landing Page).
-2. Klik **Daftar** dan buat akun pelanggan baru.
-3. Anda akan diarahkan ke halaman "Status Akun" dengan status **Menunggu Verifikasi**.
-4. Logout, lalu Login sebagai **Admin**.
-5. Masuk ke menu **Verifikasi Akun Pelanggan**, temukan akun yang baru dibuat, lalu klik **Setujui**.
-6. Logout dari Admin, Login kembali sebagai **Pelanggan**.
-7. Anda sekarang memiliki akses ke Dashboard.
-8. Masuk ke menu **Layanan** atau klik **Reservasi Baru**, pilih treatment, tanggal, dan jam, lalu Submit.
-9. Status reservasi akan menjadi **Menunggu**.
-10. Login kembali sebagai **Admin**, masuk ke **Verifikasi Reservasi**, lalu setujui reservasi tersebut.
-11. Login kembali sebagai **Pelanggan**, periksa riwayat reservasi, klik tombol **Upload Bukti Pembayaran**, lalu unggah gambar bukti transfer.
-12. Terakhir, Login sebagai **Admin**, masuk ke **Verifikasi Pembayaran**, dan setujui pembayarannya. Alur selesai!
+---
+
+## 5. Struktur Basis Data (ERD Overview)
+
+Sistem bergantung pada 5 entitas utama yang saling terkait erat (Relational Schema):
+- `Users`: Entitas sentral yang menyimpan data autentikasi dan profil.
+- `Treatments`: Entitas master yang menyimpan daftar layanan klinik.
+- `Reservations`: Entitas transaksional yang menghubungkan `Users` dan `Treatments` berdasarkan waktu (waktu pemesanan).
+- `Payments`: Entitas dependen yang terikat pada `Reservations` untuk menampung data bukti transaksi.
+- `Announcements`: Entitas publikasi yang dibuat oleh `Users` (dengan peran Admin) untuk dikonsumsi pelanggan.
+
+---
+
+## 6. Keamanan dan Kontrol Akses
+
+- **Middleware Kustom:** Aplikasi menggunakan perlindungan lapisan ganda (`CheckRole` dan `CheckAccountVerified`) untuk memastikan bahwa halaman hanya dapat diakses oleh peran yang memiliki otorisasi tepat pada status akun yang valid.
+- **Proteksi Rute (Route Protection):** Semua rute transaksional dijaga dari akses pengguna tamu (*guest*).
+- **Form Protection:** Pencegahan CSRF pada seluruh permintaan formulir (*form submission*).
+
+---
+*Dokumentasi ini memberikan gambaran tingkat tinggi (high-level overview) dari arsitektur dan fungsionalitas sistem, ditujukan untuk analisis struktural dan tinjauan fitur aplikasi AETH Clinic.*
