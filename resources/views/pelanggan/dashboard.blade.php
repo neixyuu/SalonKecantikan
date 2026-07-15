@@ -71,14 +71,26 @@
                             Upload Bukti Pembayaran →
                         </a>
                     @elseif($activeReservation->payment)
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs tracking-wide text-charcoal-light">Status Pembayaran:</span>
-                            @if($activeReservation->payment->status === 'pending')
-                                <span class="badge-pending">Menunggu Verifikasi</span>
-                            @elseif($activeReservation->payment->status === 'approved')
-                                <span class="badge-approved">Pembayaran Diterima ✓</span>
-                            @else
-                                <span class="badge-rejected">Pembayaran Ditolak</span>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs tracking-wide text-charcoal-light">Status Pembayaran:</span>
+                                @if($activeReservation->payment->status === 'pending')
+                                    <span class="badge-pending">Menunggu Verifikasi</span>
+                                @elseif($activeReservation->payment->status === 'approved')
+                                    <span class="badge-approved">Pembayaran Diterima ✓</span>
+                                @else
+                                    <span class="badge-rejected">Pembayaran Ditolak</span>
+                                @endif
+                            </div>
+                            {{-- Alasan penolakan pembayaran --}}
+                            @if($activeReservation->payment->status === 'rejected' && $activeReservation->payment->rejection_reason)
+                                <div class="border border-red-200 bg-red-50 px-4 py-3 mt-1">
+                                    <p class="text-xs font-semibold text-red-500 tracking-wide uppercase mb-1">Alasan Penolakan Bukti Bayar</p>
+                                    <p class="text-sm text-red-700 leading-relaxed">{{ $activeReservation->payment->rejection_reason }}</p>
+                                    <a href="/payments/create/{{ $activeReservation->id }}" class="btn-nude-tan text-xs py-2 px-5 inline-flex items-center mt-3">
+                                        Upload Ulang Bukti →
+                                    </a>
+                                </div>
                             @endif
                         </div>
                     @endif

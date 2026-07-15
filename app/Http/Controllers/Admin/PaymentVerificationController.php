@@ -23,12 +23,24 @@ class PaymentVerificationController extends Controller
     public function verify(Request $request, Payment $payment)
     {
         $validated = $request->validate([
-            'action' => 'required|in:approve,reject',
+            'action'           => 'required|in:approve,reject',
+            'rejection_reason' => 'nullable|string|max:1000',
         ]);
 
-        $payment->update([
+        // Guard: jangan proses ulang jika sudah diputuskan
+        if ($payment->status !== 'pending') {
+            return back()->with('error', 'Pembayaran ini sudah pernah diproses sebelumnya.');
+        }
+
+        $updateData = [
             'status' => $validated['action'] === 'approve' ? 'approved' : 'rejected',
-        ]);
+        ];
+
+        if ($validated['action'] === 'reject') {
+            $updateData['rejection_reason'] = $validated['rejection_reason'] ?? null;
+        }
+
+        $payment->update($updateData);
 
         $message = $validated['action'] === 'approve'
             ? "Pembayaran #{$payment->id} berhasil diverifikasi."

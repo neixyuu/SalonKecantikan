@@ -14,6 +14,7 @@ class Payment extends Model
         'proof_image',
         'amount',
         'status',
+        'rejection_reason',
     ];
 
     protected function casts(): array

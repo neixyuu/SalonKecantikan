@@ -23,12 +23,24 @@ class ReservationVerificationController extends Controller
     public function verify(Request $request, Reservation $reservation)
     {
         $validated = $request->validate([
-            'action' => 'required|in:approve,reject',
+            'action'           => 'required|in:approve,reject',
+            'rejection_reason' => 'nullable|string|max:1000',
         ]);
 
-        $reservation->update([
+        // Guard: jangan proses ulang jika sudah diputuskan
+        if ($reservation->status !== 'pending') {
+            return back()->with('error', 'Reservasi ini sudah pernah diproses sebelumnya.');
+        }
+
+        $updateData = [
             'status' => $validated['action'] === 'approve' ? 'approved' : 'rejected',
-        ]);
+        ];
+
+        if ($validated['action'] === 'reject') {
+            $updateData['rejection_reason'] = $validated['rejection_reason'] ?? null;
+        }
+
+        $reservation->update($updateData);
 
         $message = $validated['action'] === 'approve'
             ? "Reservasi #{$reservation->id} berhasil disetujui."

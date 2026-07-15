@@ -40,6 +40,14 @@
                             <div class="flex flex-col items-start md:items-end gap-2">
                                 {!! $reservation->status_badge !!}
 
+                                {{-- Alasan penolakan reservasi --}}
+                                @if($reservation->status === 'rejected' && $reservation->rejection_reason)
+                                    <div class="w-full md:w-auto max-w-xs border border-red-200 bg-red-50 px-3 py-2 mt-1">
+                                        <p class="text-xs font-semibold text-red-500 tracking-wide uppercase mb-1">Alasan Penolakan</p>
+                                        <p class="text-xs text-red-700 leading-relaxed">{{ $reservation->rejection_reason }}</p>
+                                    </div>
+                                @endif
+
                                 @if($reservation->payment)
                                     <div class="text-xs text-charcoal-light">
                                         Bayar:
@@ -51,6 +59,13 @@
                                             <span class="badge-rejected ml-1">Ditolak</span>
                                         @endif
                                     </div>
+                                    {{-- Alasan penolakan pembayaran --}}
+                                    @if($reservation->payment->status === 'rejected' && $reservation->payment->rejection_reason)
+                                        <div class="w-full md:w-auto max-w-xs border border-red-200 bg-red-50 px-3 py-2">
+                                            <p class="text-xs font-semibold text-red-500 tracking-wide uppercase mb-1">Alasan Bukti Ditolak</p>
+                                            <p class="text-xs text-red-700 leading-relaxed">{{ $reservation->payment->rejection_reason }}</p>
+                                        </div>
+                                    @endif
                                 @endif
 
                                 @if($reservation->status === 'approved' && !$reservation->payment)

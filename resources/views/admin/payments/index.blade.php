@@ -80,7 +80,7 @@
                                             <input type="hidden" name="action" value="reject">
                                         </form>
                                         <button type="button" class="btn-nude btn-danger text-xs py-1.5 px-3"
-                                            onclick="confirmAction('reject-pay-{{ $payment->id }}', 'reject', 'Pembayaran #{{ $payment->id }}')">
+                                            onclick="confirmReject('reject-pay-{{ $payment->id }}', 'Pembayaran #{{ $payment->id }}')">
                                             Tolak
                                         </button>
                                     </div>

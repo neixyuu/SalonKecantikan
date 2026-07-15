@@ -16,6 +16,7 @@ class Reservation extends Model
         'schedule_time',
         'status',
         'notes',
+        'rejection_reason',
     ];
 
     protected function casts(): array

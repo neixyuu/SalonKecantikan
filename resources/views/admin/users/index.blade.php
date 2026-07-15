@@ -63,7 +63,7 @@
                                         <input type="hidden" name="action" value="reject">
                                     </form>
                                     <button type="button" class="btn-nude btn-danger text-xs py-1.5 px-3"
-                                            onclick="confirmAction('reject-user-{{ $user->id }}', 'reject', '{{ $user->name }}')">
+                                            onclick="confirmReject('reject-user-{{ $user->id }}', '{{ $user->name }}', true)">
                                         Tolak
                                     </button>
                                 </div>
