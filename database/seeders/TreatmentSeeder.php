@@ -52,10 +52,27 @@ class TreatmentSeeder extends Seeder
                 'duration'    => '90 menit',
                 'image'       => 'https://images.unsplash.com/photo-1534015690623-e7f0b5d5d8cc?auto=format&fit=crop&q=80&w=800',
             ],
+            [
+                'name'        => 'Body Scrub Tradisional',
+                'description' => 'Eksfoliasi seluruh tubuh menggunakan lulur tradisional berbahan alami untuk mengangkat sel kulit mati, mencerahkan, dan menghaluskan kulit.',
+                'price'       => 280000,
+                'duration'    => '60 menit',
+                'image'       => 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&q=80&w=800',
+            ],
+            [
+                'name'        => 'Hair Coloring Premium',
+                'description' => 'Pewarnaan rambut menggunakan produk premium yang aman, tidak merusak rambut, dengan hasil warna yang tahan lama dan tampak natural.',
+                'price'       => 550000,
+                'duration'    => '120 menit',
+                'image'       => 'https://images.unsplash.com/photo-1521590832167-7bfc1738d56b?auto=format&fit=crop&q=80&w=800',
+            ],
         ];
 
         foreach ($treatments as $treatment) {
-            Treatment::create($treatment);
+            Treatment::updateOrCreate(
+                ['name' => $treatment['name']],
+                $treatment
+            );
         }
     }
 }
