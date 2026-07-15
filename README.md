@@ -113,8 +113,7 @@ Pastikan sistem Anda sudah terinstal:
    npm run dev
    ```
 
-9. **Selesai!** 
-   Buka browser dan akses aplikasi di: `http://localhost:8000`
+9. Buka browser dan akses aplikasi di: `http://localhost:8000`
 
 ---
 
