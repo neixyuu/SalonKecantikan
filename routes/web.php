@@ -45,6 +45,8 @@ Route::middleware(['auth', 'role:pelanggan'])->group(function () {
         Route::get('/reservations', [PelangganReservationController::class, 'index'])->name('reservations.index');
         Route::get('/reservations/create', [PelangganReservationController::class, 'create'])->name('reservations.create');
         Route::post('/reservations', [PelangganReservationController::class, 'store'])->name('reservations.store');
+        Route::get('/reservations/{reservation}/reschedule', [PelangganReservationController::class, 'rescheduleForm'])->name('reservations.reschedule-form');
+        Route::post('/reservations/{reservation}/reschedule-request', [PelangganReservationController::class, 'rescheduleRequest'])->name('reservations.reschedule-request');
 
         Route::get('/payments/create/{reservation}', [PelangganPaymentController::class, 'create'])->name('payments.create');
         Route::post('/payments', [PelangganPaymentController::class, 'store'])->name('payments.store');
@@ -65,6 +67,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Verifikasi reservasi
     Route::get('/reservations', [ReservationVerificationController::class, 'index'])->name('reservations.index');
     Route::patch('/reservations/{reservation}/verify', [ReservationVerificationController::class, 'verify'])->name('reservations.verify');
+    Route::patch('/reservations/{reservation}/handle-reschedule', [ReservationVerificationController::class, 'handleRescheduleRequest'])->name('reservations.handle-reschedule');
+    Route::patch('/reservations/{reservation}/cancel-by-admin', [ReservationVerificationController::class, 'cancelByAdmin'])->name('reservations.cancel-by-admin');
 
     // Verifikasi pembayaran
     Route::get('/payments', [PaymentVerificationController::class, 'index'])->name('payments.index');

@@ -11,21 +11,17 @@ class PaymentController extends Controller
 {
     public function create(Reservation $reservation)
     {
-        // Pastikan reservasi milik user yang login
-        if ($reservation->user_id !== auth()->id()) {
-            abort(403, 'Akses ditolak.');
-        }
+        if ($reservation->user_id !== auth()->id()) abort(403, 'Akses ditolak.');
 
-        // Hanya reservasi yang approved yang boleh upload bukti
         if ($reservation->status !== 'approved') {
             return redirect('/reservations')
                 ->with('error', 'Reservasi harus disetujui terlebih dahulu sebelum upload bukti bayar.');
         }
 
-        // Cek apakah sudah ada payment
-        if ($reservation->payment) {
+        // Cek apakah sudah ada payment aktif (pending/approved)
+        if ($reservation->payment && in_array($reservation->payment->status, ['pending', 'approved'])) {
             return redirect('/reservations')
-                ->with('error', 'Bukti pembayaran sudah pernah diupload.');
+                ->with('error', 'Bukti pembayaran sudah pernah diupload dan sedang diproses.');
         }
 
         $reservation->load('treatment');
@@ -49,11 +45,21 @@ class PaymentController extends Controller
 
         $reservation = Reservation::findOrFail($validated['reservation_id']);
 
-        if ($reservation->user_id !== auth()->id()) {
-            abort(403, 'Akses ditolak.');
-        }
+        if ($reservation->user_id !== auth()->id()) abort(403, 'Akses ditolak.');
 
         $path = $request->file('proof_image')->store('payments', 'public');
+
+        // Jika ada payment lama yang rejected, update saja (resubmit)
+        if ($reservation->payment && $reservation->payment->status === 'rejected') {
+            $reservation->payment->update([
+                'proof_image' => $path,
+                'amount'      => $validated['amount'],
+                'status'      => 'pending',
+            ]);
+
+            return redirect('/reservations')
+                ->with('success', 'Bukti pembayaran berhasil dikirim ulang! Menunggu verifikasi admin.');
+        }
 
         Payment::create([
             'reservation_id' => $reservation->id,
