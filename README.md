@@ -5,13 +5,6 @@
   <p>Dibangun menggunakan <strong>Laravel 13</strong> dan <strong>Tailwind CSS</strong></p>
 </div>
 
----
-
-##  Deskripsi Proyek
-**AETH Clinic** adalah sebuah sistem manajemen reservasi layanan (treatment) salon dan klinik kecantikan. Sistem ini memfasilitasi dua sisi pengguna, yaitu **Pelanggan** untuk melakukan pemesanan jadwal perawatan, dan **Admin** untuk mengelola seluruh aspek operasional mulai dari verifikasi pelanggan, manajemen reservasi, hingga validasi pembayaran.
-
-Aplikasi ini mengedepankan keamanan transaksi melalui *3-Layer Verification Flow* (Verifikasi Akun, Verifikasi Jadwal Reservasi, dan Verifikasi Bukti Pembayaran).
-
 ##  Fitur Utama
 
 ### Admin Panel
