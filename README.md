@@ -7,21 +7,21 @@
 
 ---
 
-## 📌 Deskripsi Proyek
+##  Deskripsi Proyek
 **AETH Clinic** adalah sebuah sistem manajemen reservasi layanan (treatment) salon dan klinik kecantikan. Sistem ini memfasilitasi dua sisi pengguna, yaitu **Pelanggan** untuk melakukan pemesanan jadwal perawatan, dan **Admin** untuk mengelola seluruh aspek operasional mulai dari verifikasi pelanggan, manajemen reservasi, hingga validasi pembayaran.
 
 Aplikasi ini mengedepankan keamanan transaksi melalui *3-Layer Verification Flow* (Verifikasi Akun, Verifikasi Jadwal Reservasi, dan Verifikasi Bukti Pembayaran).
 
-## 🚀 Fitur Utama
+##  Fitur Utama
 
-### 🧑‍💼 Admin Panel
+### Admin Panel
 - **Manajemen Pengguna (User Verification)**: Menyetujui atau menolak akun baru pelanggan untuk mencegah *spam/fake accounts*.
 - **Manajemen Layanan (Treatment CRUD)**: Menambah, mengubah, menghapus, dan menampilkan daftar layanan klinik beserta harga dan durasi.
 - **Validasi Reservasi**: Menyetujui atau menolak jadwal *treatment* yang diajukan pelanggan.
 - **Validasi Pembayaran**: Memeriksa dan memverifikasi bukti transfer pembayaran dari pelanggan.
 - **Manajemen Pengumuman/Promo**: Mengelola informasi publik yang ditampilkan di beranda (*support* *embed* video YouTube).
 
-### 👩‍🦰 Portal Pelanggan
+### Portal Pelanggan
 - **Katalog Layanan**: Melihat daftar *treatment* yang tersedia di AETH Clinic.
 - **Sistem Pemesanan (Reservation)**: Melakukan *booking* jadwal *treatment* secara mandiri.
 - **Riwayat Reservasi**: Memantau status reservasi (Menunggu, Disetujui, Ditolak).
@@ -30,7 +30,7 @@ Aplikasi ini mengedepankan keamanan transaksi melalui *3-Layer Verification Flow
 
 ---
 
-## 🛠️ Spesifikasi & Dependensi
+## Spesifikasi & Dependensi
 
 Proyek ini menggunakan *stack* teknologi modern untuk memastikan performa yang cepat dan pengalaman pengembangan (DX) yang baik.
 
@@ -48,7 +48,7 @@ Proyek ini menggunakan *stack* teknologi modern untuk memastikan performa yang c
 
 ---
 
-## 💻 Panduan Instalasi (Development)
+## Panduan Instalasi (Development)
 
 Berikut adalah panduan langkah demi langkah untuk menjalankan proyek ini di *environment* lokal Anda.
 
@@ -118,7 +118,7 @@ Pastikan sistem Anda sudah terinstal:
 
 ---
 
-## 📂 Struktur Direktori Penting
+## Struktur Direktori Penting
 
 Sebagai gambaran untuk pengembang, berikut lokasi modul-modul penting:
 - `app/Models/` : Relasi database dan logika enkapsulasi (*Accessors*).
@@ -127,13 +127,5 @@ Sebagai gambaran untuk pengembang, berikut lokasi modul-modul penting:
 - `resources/views/layouts/` : Berisi `app.blade.php`, layout utama dengan *role-based UI check*.
 - `routes/web.php` : Peta navigasi (*Routing*) utama, dilengkapi grup *middleware* otentikasi dan *role*.
 
-## 🤝 Kontribusi
-Aplikasi ini dikembangkan untuk keperluan spesifik klinik. Jika Anda ingin berkontribusi:
-1. Lakukan *Fork* pada repositori ini.
-2. Buat *branch* fitur Anda (`git checkout -b fitur-baru`).
-3. Lakukan *Commit* perubahan Anda (`git commit -m 'Menambahkan fitur XYZ'`).
-4. *Push* ke branch (`git push origin fitur-baru`).
-5. Buka *Pull Request*.
-
-## 📄 Lisensi
+## Lisensi
 Proyek ini bersifat *Open Source* di bawah lisensi [MIT license](https://opensource.org/licenses/MIT).
