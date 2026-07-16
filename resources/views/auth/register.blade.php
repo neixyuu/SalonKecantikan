@@ -32,6 +32,7 @@
                 class="form-input {{ $errors->has('name') ? 'error' : '' }}"
                 placeholder="Nama Anda"
                 autocomplete="name"
+                maxlength="20"
                 required
             >
             @error('name')
@@ -49,6 +50,7 @@
                 class="form-input {{ $errors->has('email') ? 'error' : '' }}"
                 placeholder="email@contoh.com"
                 autocomplete="email"
+                maxlength="20"
                 required
             >
             @error('email')
@@ -65,6 +67,7 @@
                 value="{{ old('phone') }}"
                 class="form-input {{ $errors->has('phone') ? 'error' : '' }}"
                 placeholder="08xxxxxxxxxx"
+                maxlength="13"
             >
             @error('phone')
                 <p class="form-error">{{ $message }}</p>
