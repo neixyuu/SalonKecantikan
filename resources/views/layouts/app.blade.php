@@ -184,7 +184,7 @@
                             class="nav-link {{ request()->is('announcements') ? 'active' : '' }}">Pengumuman</a>
                     @else
                         <a href="/#layanan" class="nav-link">Layanan</a>
-                        <a href="/#tentang" class="nav-link">Pengumuman</a>
+                        <a href="/announcements" class="nav-link {{ request()->is('announcements') ? 'active' : '' }}">Pengumuman</a>
                     @endauth
                 </div>
 

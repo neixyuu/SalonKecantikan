@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 // ─── Landing Page (Publik) ────────────────────────────────────────────────────
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 
+// Pengumuman – bisa diakses tanpa login
+Route::get('/announcements', [PelangganAnnouncementController::class, 'index'])->name('announcements.index');
+
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -50,8 +53,6 @@ Route::middleware(['auth', 'role:pelanggan'])->group(function () {
 
         Route::get('/payments/create/{reservation}', [PelangganPaymentController::class, 'create'])->name('payments.create');
         Route::post('/payments', [PelangganPaymentController::class, 'store'])->name('payments.store');
-
-        Route::get('/announcements', [PelangganAnnouncementController::class, 'index'])->name('announcements.index');
     });
 });
 

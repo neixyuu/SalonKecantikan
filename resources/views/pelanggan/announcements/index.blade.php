@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pengumuman')
+@section('title', 'Pengumuman — AETH Clinic')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-6 py-12">
@@ -56,6 +56,18 @@
             <p class="text-xs text-charcoal-light tracking-wide">Pengumuman dari salon akan muncul di sini</p>
         </div>
     @endif
+
+    {{-- CTA untuk Guest --}}
+    @guest
+        <div class="mt-12 p-8 border border-graymedium text-center fade-in" style="background: linear-gradient(135deg, var(--color-blush) 0%, var(--color-cream-dark) 100%);">
+            <p class="font-serif text-2xl text-charcoal mb-2">Ingin Memesan Layanan?</p>
+            <p class="text-sm text-charcoal-light mb-6 tracking-wide">Daftar akun untuk mulai reservasi layanan premium kami.</p>
+            <div class="flex justify-center gap-3">
+                <a href="/register" class="btn-nude-filled text-sm py-2.5 px-8">Daftar Sekarang →</a>
+                <a href="/login" class="btn-nude text-sm py-2.5 px-6">Masuk</a>
+            </div>
+        </div>
+    @endguest
 
 </div>
 @endsection
