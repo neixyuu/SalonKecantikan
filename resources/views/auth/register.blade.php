@@ -36,7 +36,7 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}"
                     class="form-input {{ $errors->has('email') ? 'error' : '' }}" placeholder="email@contoh.com"
-                    autocomplete="email" maxlength="30" required>
+                    autocomplete="email" maxlength="40" required>
                 @error('email')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

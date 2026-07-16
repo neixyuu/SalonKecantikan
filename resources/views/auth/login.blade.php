@@ -69,13 +69,6 @@
                 <a href="/register" class="text-tan-dark font-medium hover:underline">Daftar sekarang</a>
             </p>
         </div>
-
-        <!-- {{-- Demo credentials --}}
-                <div class="mt-8 p-4 border border-graymedium" style="background-color: var(--color-graylight);">
-                    <p class="text-xs tracking-wider uppercase text-charcoal-light font-semibold mb-2">Demo Admin</p>
-                    <p class="text-xs text-charcoal-light">Email: <code class="bg-white px-1">admin@salon.com</code></p>
-                    <p class="text-xs text-charcoal-light mt-1">Password: <code class="bg-white px-1">password123</code></p>
-                </div> -->
     </div>
 
     <script>
