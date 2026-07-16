@@ -188,15 +188,17 @@
                     @endauth
                 </div>
 
-                {{-- Right: Status + Auth --}}
+                {{-- Right: Status + Auth + Mobile Toggle --}}
                 <div class="flex items-center gap-4">
                     @auth
-                        {{-- Status badge --}}
-                        @if(auth()->user()->account_status === 'pending')
-                            <a href="/status-akun" class="badge-pending text-xs">Menunggu Verifikasi</a>
-                        @elseif(auth()->user()->account_status === 'rejected')
-                            <a href="/status-akun" class="badge-rejected text-xs">Akun Ditolak</a>
-                        @endif
+                        {{-- Status badge (hidden on very small screens, keep on sm) --}}
+                        <div class="hidden sm:block">
+                            @if(auth()->user()->account_status === 'pending')
+                                <a href="/status-akun" class="badge-pending text-xs">Menunggu Verifikasi</a>
+                            @elseif(auth()->user()->account_status === 'rejected')
+                                <a href="/status-akun" class="badge-rejected text-xs">Akun Ditolak</a>
+                            @endif
+                        </div>
 
                         {{-- User dropdown --}}
                         <div class="relative group">
@@ -213,6 +215,13 @@
                             </button>
                             <div
                                 class="absolute right-0 top-full mt-2 w-44 bg-white border border-graymedium shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="sm:hidden px-4 py-2 border-b border-graymedium">
+                                    @if(auth()->user()->account_status === 'pending')
+                                        <a href="/status-akun" class="badge-pending text-[10px] w-full text-center">Menunggu Verifikasi</a>
+                                    @elseif(auth()->user()->account_status === 'rejected')
+                                        <a href="/status-akun" class="badge-rejected text-[10px] w-full text-center">Akun Ditolak</a>
+                                    @endif
+                                </div>
                                 <a href="/status-akun"
                                     class="block px-4 py-2.5 text-xs tracking-wide uppercase hover:bg-graylight text-charcoal-light hover:text-charcoal transition-colors">Status
                                     Akun</a>
@@ -225,8 +234,36 @@
                             </div>
                         </div>
                     @else
-                        <a href="/login" class="nav-link">Masuk</a>
-                        <a href="/register" class="btn-nude">Daftar</a>
+                        <div class="hidden sm:flex items-center gap-4">
+                            <a href="/login" class="nav-link">Masuk</a>
+                            <a href="/register" class="btn-nude">Daftar</a>
+                        </div>
+                    @endauth
+
+                    {{-- Mobile menu button --}}
+                    <button id="mobile-menu-btn" class="md:hidden text-charcoal hover:text-tan transition-colors ml-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="mobile-menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            {{-- Mobile Menu Dropdown --}}
+            <div id="mobile-menu" class="hidden md:hidden border-t border-graymedium bg-white absolute w-full left-0 shadow-lg">
+                <div class="flex flex-col px-6 py-4 space-y-4">
+                    @auth
+                        <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
+                        <a href="/treatments" class="nav-link {{ request()->is('treatments') ? 'active' : '' }}">Layanan</a>
+                        <a href="/reservations" class="nav-link {{ request()->is('reservations*') ? 'active' : '' }}">Reservasi</a>
+                        <a href="/announcements" class="nav-link {{ request()->is('announcements') ? 'active' : '' }}">Pengumuman</a>
+                    @else
+                        <a href="/#layanan" class="nav-link">Layanan</a>
+                        <a href="/announcements" class="nav-link {{ request()->is('announcements') ? 'active' : '' }}">Pengumuman</a>
+                        <div class="border-t border-graymedium pt-4 flex flex-col gap-3 sm:hidden">
+                            <a href="/login" class="nav-link text-center w-full">Masuk</a>
+                            <a href="/register" class="btn-nude-filled text-center w-full justify-center">Daftar</a>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -299,6 +336,25 @@
         </footer>
     @endif
 
+    <script>
+        // Mobile Menu Toggle Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+
+            if(btn && menu && icon) {
+                btn.addEventListener('click', function() {
+                    menu.classList.toggle('hidden');
+                    if (menu.classList.contains('hidden')) {
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
+                    } else {
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Close (X) icon
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
